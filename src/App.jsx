@@ -53,6 +53,7 @@ const App = () => {
     setHistory(NEW_GAME);
     setCurrentMove(0);
   }
+  let noMovesLeft = current.board.every((val)=> val!==null);
   
   return (
     <div className="app">
@@ -60,7 +61,7 @@ const App = () => {
       <WinnerMsg current={current} winner={winner} />
       <Board board={current.board} handleBoardClick={handleBoardClick} winningSquares={winningSquares} />
       <br />
-      <button type="button" onClick={onNewGame} className={`btn-reset ${winner? 'active': ''}`}>Start new Game</button>
+      <button type="button" onClick={onNewGame} className={`btn-reset ${winner || noMovesLeft? 'active': ''}`}>Start new Game</button>
       <br />
       <h2>Current game history</h2>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
