@@ -6,13 +6,18 @@ import WinnerMsg from './Components/WinnerMsg/WinnerMsg'
 
 const App = () => {
 
-  // state of board
-  const [history, setHistory] = useState([
+  const NEW_GAME = [
     { board : Array(9).fill(null), isXNext: true }
-  ]); 
+  ];
+
+  // state of board
+  const [history, setHistory] = useState(NEW_GAME); 
 
   const[currentMove, setCurrentMove] = useState(0);
   let current = history[currentMove];
+
+  //Calculating winner
+  const {winner, winningSquares} = calculateWinner(current.board);
 
   const handleBoardClick = (position) => {
     // game stops when the clicked square already has value or winner is decided
@@ -39,22 +44,24 @@ const App = () => {
   }
   console.log(history);
   // Calculate winner by combinations
-  const winner = calculateWinner(current.board);
- 
-
-  // display message
-  let message = winner? `Winner ${winner}` : `Next Turn ${current.isXNext? 'X': 'O'}`;
-  let myStyle = {}
 
   function moveTo(move){
     setCurrentMove(move)
+  }
+
+  function onNewGame()  {
+    setHistory(NEW_GAME);
+    setCurrentMove(0);
   }
   
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
       <WinnerMsg current={current} winner={winner} />
-      <Board board={current.board} handleBoardClick={handleBoardClick} />
+      <Board board={current.board} handleBoardClick={handleBoardClick} winningSquares={winningSquares} />
+      <br />
+      <button type="button" onClick={onNewGame}>Start new Game</button>
+      <br />
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
   );

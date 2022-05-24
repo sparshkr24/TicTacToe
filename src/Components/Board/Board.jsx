@@ -1,14 +1,14 @@
 import React,  { useState } from "react";
 import Square from "./Square";
 
-export default function Board({board, handleBoardClick}) {
+export default function Board({board, handleBoardClick, winningSquares}) {
   
   const renderSquare = position => {
 
     // When onClick is invoked, the callback function will run every time and will return handleBoardClick function
     // which will be set as the onClick function
     return (
-    <Square value={board[position]} 
+    <Square value={board[position]} winningSquare={winningSquares.includes(position)} 
       onclick={ () =>{return handleBoardClick(position);
     }} />
     );
