@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Board from "./Components/Board/Board";
 import {calculateWinner} from "./calculateWinner"
 import History from './Components/History/History'
+import WinnerMsg from './Components/WinnerMsg/WinnerMsg'
 
 const App = () => {
 
@@ -52,7 +53,7 @@ const App = () => {
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
-      <h3>{message}</h3>
+      <WinnerMsg current={current} winner={winner} />
       <Board board={current.board} handleBoardClick={handleBoardClick} />
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
