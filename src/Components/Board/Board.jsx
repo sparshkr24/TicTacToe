@@ -1,33 +1,14 @@
 import React,  { useState } from "react";
 import Square from "./Square";
 
-export default function Board() {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [isXNext, setisXNext] = useState(true);
-
-  const handleBoardClick = (position) => {
-    if(board[position]){
-      return;
-    }
-
-    setBoard((prev)=>{
-      return prev.map((value, idx)=>{
-        if(idx === position){
-          setisXNext(isXNext?false: true)
-          return isXNext? 'X': 'O';
-        }
-        else{
-          return value;
-        }
-      })
-    })
-
-
-  }
-
+export default function Board({board, handleBoardClick, winningSquares}) {
+  
   const renderSquare = position => {
+
+    // When onClick is invoked, the callback function will run every time and will return handleBoardClick function
+    // which will be set as the onClick function
     return (
-    <Square value={board[position]} 
+    <Square value={board[position]} winningSquare={winningSquares.includes(position)} 
       onclick={ () =>{return handleBoardClick(position);
     }} />
     );
@@ -53,3 +34,8 @@ export default function Board() {
     </div>
   );
 }
+
+// Board system
+// 0 1 2
+// 3 4 5
+// 6 7 8
